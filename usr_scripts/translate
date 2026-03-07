@@ -1,0 +1,120 @@
+#!/bin/fish
+
+set app_version 0.1.5
+set searched_expression[1] ''
+set option_ef false
+set option_fe false
+set option_help false
+set option_version false
+
+function print_usage
+  printf %s\n \
+    'Usage: translate [option]* [word]*' \
+    'Common options: -ef english=>french  -fe french=>english' \
+    'translate --help for more information'
+end
+
+function print_help
+  printf %s\n \
+    "translate (fish script) version $app_version" \
+    'Copyright 2026 Xavier Nayrac' \
+    '' \
+    'Usage: translate [option]* [word]*' \
+    'Translate word(s) from english to french and vice versa.' \
+    '' \
+    '-ef            translate from english to french' \
+    '-fe            translate from french to english' \
+    '-v  --version  display version' \
+    '-h  --help     display this help'
+end
+
+function set_word
+  set --function num 1
+  for i in $argv
+    if ! string match --quiet --regex '^-.*' -- $i
+      set searched_expression[$num] $i
+      set num (math $num + 1)
+    end
+  end
+
+  if set --query DEBUG
+    echo $searched_expression
+    count $searched_expression
+  end
+end
+
+function parse_arguments
+  argparse --exclusive ef,fe \
+    'ef' 'fe' 'h/help' 'v/version' -- $argv ; or return
+
+  if set --query --function _flag_ef ; set option_ef true ; end
+  if set --query --function _flag_fe ; set option_fe true ; end
+  if set --query --function _flag_help ; set option_help true ; end
+  if set --query --function _flag_version ; set option_version true ; end
+
+  if set --query DEBUG
+    echo ef: $option_ef
+    echo fe: $option_fe
+    echo v: $option_version
+    echo h: $option_help
+  end
+end
+
+function translate -a database
+  dict -d $database -s lev \'(string join ' ' $searched_expression)\'
+end
+
+function print_translation
+  set -f empty_counter 0
+
+  for i in $argv
+    if [ -z $i ]
+      set empty_counter (math $empty_counter + 1)
+      if [ $empty_counter -eq 1 ]
+        printf \n
+      else
+        set empty_counter 0
+      end
+    else if string match --quiet --regex '.*FreeDict.*' -- $i
+      # nothing
+    else
+      echo $i
+    end
+  end
+
+  printf \n
+end
+
+parse_arguments $argv
+
+if $option_version
+  echo "translate (fish script) version $app_version"
+  exit
+end
+
+if $option_help
+  print_help
+  exit
+end
+
+set_word $argv
+
+if [ -z $searched_expression[1] ]
+  print_usage
+  exit 1 # TBD Maybe not needed
+end
+
+if [ ! $option_ef -o $option_fe ]
+  print_usage
+  exit 1 # TBD Maybe not needed
+end
+
+if $option_ef
+  set --function res (translate fd-eng-fra)
+  print_translation $res
+end
+
+if $option_fe
+  set --function res (translate fd-fra-eng)
+  print_translation $res
+end

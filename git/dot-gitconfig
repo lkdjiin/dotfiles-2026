@@ -1,0 +1,22 @@
+[alias]
+  addci = !git add . && git commit -av
+  br = branch
+  ci = commit -v
+  co = checkout
+  hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
+  ic = commit -v
+  last = log -3 HEAD
+  pushf = push --force-with-lease
+  push-f = push --force-with-lease
+  rb = branch
+  st = status -sb
+[color]
+  ui = true
+[core]
+  editor = vim -f
+  excludesfile = /home/xavier/.gitignore_global
+[user]
+  email = xavier.nayrac@gmail.com
+  name = Xavier Nayrac
+[init]
+	defaultBranch = main
