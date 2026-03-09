@@ -35,6 +35,7 @@ source ~/.vim/vimrc.local.vim
 
 " Theme section ----------------------------------------
 autocmd vimenter * ++nested colorscheme gruvbox
+set bg=dark
 " ------------------------------------------------------
 
 " Sauvegarder le fichier quand on change d'onglet.
