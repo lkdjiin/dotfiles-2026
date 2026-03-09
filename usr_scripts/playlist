@@ -1,0 +1,42 @@
+#!/bin/fish
+
+set app_version 0.1.0
+
+function print_usage
+  echo Usage: playlist path/to/folder
+  exit 0
+end
+
+function print_version
+  echo 'playlist (fish script) version ' $app_version
+  echo Copyright 2026, Xavier Nayrac
+  exit 0
+end
+
+function parse_arguments
+  argparse 'h/help' 'v/version' -- $argv ; or return
+  if set --query --function _flag_help
+    print_usage
+  end
+
+  if set --query --function _flag_version
+    print_version
+  end
+end
+
+parse_arguments $argv
+
+if set --query argv[1]
+  set fullpath (path resolve $argv[1])
+else
+  print_usage
+end
+
+set name (path basename $fullpath | tr --delete ' ')
+set filename (path normalize $fullpath/$name.m3u)
+
+rm -f $filename
+
+for i in (path normalize $fullpath/*.{ogg,mp3,flac})
+  echo (path basename $i) >> $filename
+end
