@@ -1,3 +1,5 @@
-function :q --description 'Exit à la vim'
+function :q \
+  --description 'Exit à la vim'
+
     exit
 end

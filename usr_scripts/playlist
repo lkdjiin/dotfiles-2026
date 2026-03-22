@@ -37,6 +37,6 @@ set filename (path normalize $fullpath/$name.m3u)
 
 rm -f $filename
 
-for i in (path normalize $fullpath/*.{ogg,mp3,flac})
+for i in (path normalize $fullpath/*.{ogg,mp3,flac,wav})
   echo (path basename $i) >> $filename
 end
