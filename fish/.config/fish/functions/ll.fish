@@ -1,5 +1,10 @@
 function ll \
   --description 'Like ls with lots more information'
 
-    ls -lh $argv
+  eza \
+    --long \
+    --header \
+    --time-style=long-iso \
+    --group-directories-first \
+    $argv
 end

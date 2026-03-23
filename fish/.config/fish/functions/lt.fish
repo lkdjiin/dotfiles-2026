@@ -1,5 +1,5 @@
 function lt \
-  --description 'tree with only one level'
+  --description 'List on one column'
 
-    tree -L 1 $argv
+  eza -1 --group-directories-first $argv
 end
