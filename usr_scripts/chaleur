@@ -1,0 +1,39 @@
+#!/bin/fish
+
+set RESET $(printf '\033[0m')
+set GRAY $(printf '\033[38;5;248m')
+set BLUE $(printf '\033[38;5;239m')
+
+set data (sensors -j)
+# sensors -j | jq '."coretemp-isa-0000",."iwlwifi_1-virtual-0",."nvme-pci-0200",."acpitz-acpi-0"'
+
+echo $BLUE"Cores"$RESET
+echo $BLUE"====="$RESET
+echo -n $GRAY"Package: "$RESET
+echo $data | jq '."coretemp-isa-0000"."Package id 0"."temp1_input"' | xargs printf '%2.0f\n'
+echo -n $GRAY"Core 0 : "$RESET
+echo $data | jq '."coretemp-isa-0000"."Core 0"."temp2_input"' | xargs printf '%2.0f\n'
+echo -n $GRAY"Core 1 : "$RESET
+echo $data | jq '."coretemp-isa-0000"."Core 1"."temp3_input"' | xargs printf '%2.0f\n'
+echo -n $GRAY"Core 2 : "$RESET
+echo $data | jq '."coretemp-isa-0000"."Core 2"."temp4_input"' | xargs printf '%2.0f\n'
+echo -n $GRAY"Core 3 : "$RESET
+echo $data | jq '."coretemp-isa-0000"."Core 3"."temp5_input"' | xargs printf '%2.0f\n'
+echo -n $GRAY"Core 4 : "$RESET
+echo $data | jq '."coretemp-isa-0000"."Core 4"."temp6_input"' | xargs printf '%2.0f\n'
+echo -n $GRAY"Core 5 : "$RESET
+echo $data | jq '."coretemp-isa-0000"."Core 5"."temp7_input"' | xargs printf '%2.0f\n'
+echo -n $GRAY"Core 6 : "$RESET
+echo $data | jq '."coretemp-isa-0000"."Core 6"."temp8_input"' | xargs printf '%2.0f\n'
+echo -n $GRAY"Core 7 : "$RESET
+echo $data | jq '."coretemp-isa-0000"."Core 7"."temp9_input"' | xargs printf '%2.0f\n'
+
+echo
+echo $BLUE"Misc"$RESET
+echo $BLUE"===="$RESET
+echo -n $GRAY"Virtual: "$RESET
+echo $data | jq '."iwlwifi_1-virtual-0"."temp1"."temp1_input"' | xargs printf '%2.0f\n'
+echo -n $GRAY"PCI :    "$RESET
+echo $data | jq '."nvme-pci-0200"."Composite"."temp1_input"' | xargs printf '%2.0f\n'
+echo -n $GRAY"ACPI :   "$RESET
+echo $data | jq '."acpitz-acpi-0"."temp1"."temp1_input"' | xargs printf '%2.0f\n'
