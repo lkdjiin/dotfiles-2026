@@ -31,15 +31,17 @@ function make-custom-greeting
 end
 
 if status is-interactive
-    # Commands to run in interactive sessions can go here
-    make-custom-greeting
-    set -g fish_greeting $custom_greeting
-    abbr --add tra translate
-    alias cat="batcat"
-    alias mkdir="mkdir -v"
-    alias cp="cp -v"
-    alias mv="mv -v"
-    alias m="wheat"
+  # Commands to run in interactive sessions can go here
+  make-custom-greeting
+  set -g fish_greeting $custom_greeting
+  abbr --add tra translate
+  abbr --add bxr 'bundle exec rspec'
+  alias cat="batcat"
+  alias mkdir="mkdir -v"
+  alias cp="cp -v"
+  alias mv="mv -v"
+  alias rm="rm -v"
+  alias m="wheat"
 end
 
 # Added by `rbenv init` on ven. 28 mars 2025 08:46:38 CET
