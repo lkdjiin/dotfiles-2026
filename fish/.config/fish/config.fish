@@ -30,9 +30,15 @@ function make-custom-greeting
   end
 end
 
+function display-welcome-banner
+  set img (random choice ~/.config/fish/images/*.jpg)
+  chafa --format=symbols -w 9 $img
+end
+
 if status is-interactive
   # Commands to run in interactive sessions can go here
-  make-custom-greeting
+  # make-custom-greeting
+  display-welcome-banner
   set -g fish_greeting $custom_greeting
   abbr --add tra translate
   abbr --add bxr 'bundle exec rspec'
