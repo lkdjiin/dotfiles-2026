@@ -18,7 +18,7 @@ function fish_prompt \
 	set_color $fish_color_error
 	end
 
-	echo -n '$ '
+  echo -n '▷ '
 
 	set_color normal
 end
