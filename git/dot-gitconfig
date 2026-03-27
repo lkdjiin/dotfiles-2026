@@ -10,6 +10,8 @@
   push-f = push --force-with-lease
   rb = branch
   st = status -sb
+  t = status -sb
+  s = status -sb
 [color]
   ui = true
 [core]
