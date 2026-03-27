@@ -48,6 +48,7 @@ if status is-interactive
   alias mv="mv -v"
   alias rm="rm -v"
   alias m="wheat"
+  alias gitst="git st"
 end
 
 # Added by `rbenv init` on ven. 28 mars 2025 08:46:38 CET
